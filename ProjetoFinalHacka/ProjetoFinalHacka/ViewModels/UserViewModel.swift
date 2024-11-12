@@ -11,6 +11,21 @@ class UserViewModel: ObservableObject {
     let apiurl = "http://127.0.0.1:1880"
     @Published var users: [User] = []
     @Published var user: User? = nil
+
+    func getUserByEmail(email: String) {
+        let url = URL(string: apiurl + "/get-user-by-email?email=\(email.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)")!
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            do {
+                let user = try JSONDecoder().decode(User.self, from: data)
+                DispatchQueue.main.async {
+                    self.user = user
+                }
+            } catch {
+                print("Error decoding user: \(error)")
+            }
+        }
+        task.resume()
+    }
     
     func getUser(id: String) {
         let task = URLSession.shared.dataTask(with: apiurl + "/get-user/\(id)") { data, _, error in
@@ -27,7 +42,6 @@ class UserViewModel: ObservableObject {
     }
 
     func getUsers() {
-        print("fadfafasf")
         let task = URLSession.shared.dataTask(with: URL(string: apiurl +  "/get-users")!
         ) { data, _, error in
             do {

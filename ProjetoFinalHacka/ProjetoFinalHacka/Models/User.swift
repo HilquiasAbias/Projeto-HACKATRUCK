@@ -13,5 +13,6 @@ struct User: Encodable, Decodable, Hashable {
     var name: String
     var email: String
     var image: String
+    var password: String
     var families: [Family]
 }
