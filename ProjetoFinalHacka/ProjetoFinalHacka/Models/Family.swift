@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Family: Codable, Hashable {
-   // var id: Int
+struct Family: Encodable, Decodable, Hashable{
+    var _id: String
+    var _rev: String
     var nome: String
     var users: [User]
 }

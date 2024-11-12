@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct Reaction: Codable, Identifiable {
-    var id: Int
-    var text: String
+struct Reaction: Encodable, Decodable, HashableS {
+    var _id: String
+    var _rev: String
+    //var text: String
+    var user: User
+    var moment: Moment  
+    var createdat: String
 }
