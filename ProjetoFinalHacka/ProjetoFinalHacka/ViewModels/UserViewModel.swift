@@ -12,6 +12,20 @@ class UserViewModel: ObservableObject {
     @Published var users: [User] = []
     @Published var user: User? = nil
     
+    func getUser(id: String) {
+        let task = URLSession.shared.dataTask(with: apiurl + "/get-user/\(id)") { data, _, error in
+            do {
+                let user = try JSONDecoder().decode(User.self, from: data)
+                DispatchQueue.main.async {
+                    self.user = user
+                }
+            } catch {
+                print("Error decoding user: \(error)")
+            }
+        }
+        task.resume()
+    }
+
     func getUsers() {
         print("fadfafasf")
         let task = URLSession.shared.dataTask(with: URL(string: apiurl +  "/get-users")!
