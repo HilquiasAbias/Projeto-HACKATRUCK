@@ -7,35 +7,14 @@
 
 import Foundation
 
-class FamilyViewModel: ObservableObject {
-
-    let apiurl = "http://127.0.0.1:1880"
-    @Published var families = [Family]()
-    @Published var family: Family? = nil
-
-    func getFamilyByUserId(id: String) {
-        guard let url = URL(string: apiurl + "/families/user/\(id)") else {
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                let family = try JSONDecoder().decode(Family.self, from: data)
-                DispatchQueue.main.async {
-                    self.families.append(family)
-                }
-            } catch {
-                print(error)
-            }
-        }.resume()
-    }
+class MomentViewModel: ObservableObject {
     
-    func getFamilyById(id: String) {
-        guard let url = URL(string: apiurl + "/families/\(id)") else {
+    let apiurl = "http://127.0.0.1:1880"
+    @Published var moments = [Moment]()
+    @Published var moment: Moment? = nil
+
+    func getMomentsById(id: String) {
+        guard let url = URL(string: apiurl + "/moments/\(id)") else {
             return
         }
         
@@ -45,9 +24,9 @@ class FamilyViewModel: ObservableObject {
             }
             
             do {
-                let family = try JSONDecoder().decode(Family.self, from: data)
+                let moment = try JSONDecoder().decode(Moment.self, from: data)
                 DispatchQueue.main.async {
-                    self.families.append(family)
+                    self.moments.append(moment)
                 }
             } catch {
                 print(error)
@@ -55,8 +34,8 @@ class FamilyViewModel: ObservableObject {
         }.resume()
     }
 
-    func getFamilies() {
-        guard let url = URL(string: apiurl + "/families") else {
+    func getMomentByUserId(id: String) {
+        guard let url = URL(string: apiurl + "/moments/user/\(id)") else {
             return
         }
         
@@ -66,9 +45,9 @@ class FamilyViewModel: ObservableObject {
             }
             
             do {
-                let families = try JSONDecoder().decode([Family].self, from: data)
+                let moment = try JSONDecoder().decode(Moment.self, from: data)
                 DispatchQueue.main.async {
-                    self.families = families
+                    self.moments.append(moment)
                 }
             } catch {
                 print(error)
@@ -76,21 +55,39 @@ class FamilyViewModel: ObservableObject {
         }.resume()
     }
 
-    func postFamily(family: Family) {
-        guard let url = URL(string: apiurl + "/families") else {
+    func getMoments() {
+        guard let url = URL(string: apiurl + "/moments") else {
             return
         }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                let moments = try JSONDecoder().decode([Moment].self, from: data)
+                DispatchQueue.main.async {
+                    self.moments = moments
+                }
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+
+    func postMoment(moment: Moment) {
+        guard let url = URL(string: apiurl + "/moments") else {
+            return
+        }
+        
+        let body = MomentPostRequest(moment: moment)
+        let bodyData = try? JSONEncoder().encode(body)
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            let jsonData = try JSONEncoder().encode(family)
-            request.httpBody = jsonData
-        } catch {
-            print(error)
-        }
+        request.httpBody = bodyData
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
@@ -98,9 +95,9 @@ class FamilyViewModel: ObservableObject {
             }
             
             do {
-                let family = try JSONDecoder().decode(Family.self, from: data)
+                let moment = try JSONDecoder().decode(Moment.self, from: data)
                 DispatchQueue.main.async {
-                    self.families.append(family)
+                    self.moments.append(moment)
                 }
             } catch {
                 print(error)
@@ -108,8 +105,37 @@ class FamilyViewModel: ObservableObject {
         }.resume()
     }
 
-    func deleteFamily(id: String) {
-        guard let url = URL(string: apiurl + "/families/\(id)") else {
+    func putMoment(moment: Moment) {
+        guard let url = URL(string: apiurl + "/moments/\(moment._id)") else {
+            return
+        }
+        
+        let body = MomentPutRequest(moment: moment)
+        let bodyData = try? JSONEncoder().encode(body)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = bodyData
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                let moment = try JSONDecoder().decode(Moment.self, from: data)
+                DispatchQueue.main.async {
+                    self.moments.append(moment)
+                }
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+
+    func deleMoment(id: String) {
+        guard let url = URL(string: apiurl + "/moments/\(id)") else {
             return
         }
         
@@ -122,48 +148,13 @@ class FamilyViewModel: ObservableObject {
             }
             
             do {
-                let family = try JSONDecoder().decode(Family.self, from: data)
+                let moment = try JSONDecoder().decode(Moment.self, from: data)
                 DispatchQueue.main.async {
-                    self.families.removeAll { $0.id == family.id }
+                    self.moments.append(moment)
                 }
             } catch {
                 print(error)
             }
         }.resume()
     }
-
-    func putFamily(family: Family) {
-        guard let url = URL(string: apiurl + "/families/\(family.id)") else {
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            let jsonData = try JSONEncoder().encode(family)
-            request.httpBody = jsonData
-        } catch {
-            print(error)
-        }
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                let family = try JSONDecoder().decode(Family.self, from: data)
-                DispatchQueue.main.async {
-                    if let index = self.families.firstIndex(where: { $0.id == family.id }) {
-                        self.families[index] = family
-                    }
-                }
-            } catch {
-                print(error)
-            }
-        }.resume()
-    }   
-
 }
