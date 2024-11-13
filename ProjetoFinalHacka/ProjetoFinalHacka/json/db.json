@@ -1,0 +1,54 @@
+user1 = {
+    "_id": "user1234",
+    "_rev": "1-abc123",
+    "name": "Maria Oliveira",
+    "email": "maria.oliveira@example.com",
+    "image": "",
+    "password": "passwordSegura456",
+    "families": [
+        {
+            "_id": "family8901",
+            "nome": "Família Oliveira"
+        }
+    ],
+    "moments": [
+        {
+            "_id": "moment5678",
+            "text": "Apreciando o pôr do sol na praia",
+            "image": "",
+            "location": "Praia Central",
+            "createdAt": datetime.now().isoformat(),
+            "coments": [
+                {
+                    "_id": "coment3456",
+                    "text": "Que lindo momento!",
+                    "user": {
+                        "_id": "user1234",
+                        "_rev": "1-abc123",
+                        "name": "Maria Oliveira",
+                        "email": "maria.oliveira@example.com",
+                        "image": "",
+                        "password": "passwordSegura456",
+                        "families": ["family8901"]
+                    },
+                    "createdAt": datetime.now().isoformat()
+                }
+            ],
+            "reactions": [
+                {
+                    "_id": "reaction7890",
+                    "user": {
+                        "_id": "user1234",
+                        "_rev": "1-abc123",
+                        "name": "Maria Oliveira",
+                        "email": "maria.oliveira@example.com",
+                        "image": "",
+                        "password": "passwordSegura456",
+                        "families": ["family8901"]
+                    },
+                    "createdAt": datetime.now().isoformat()
+                }
+            ]
+        }
+    ]
+}
