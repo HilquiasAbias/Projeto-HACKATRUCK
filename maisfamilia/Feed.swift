@@ -12,6 +12,9 @@ import SwiftUI
 struct Feed: View{
     @State private var ShowingSheet = false
     @State private var buscar: String = ""
+    
+    @StateObject var viewModel: UserViewModel = UserViewModel()
+    
     var body: some View{
         VStack {
             
@@ -30,9 +33,9 @@ struct Feed: View{
                 }
                 
             }
-                .font(.system(size:25))
-                .bold()
-                .foregroundColor(Color("Green"))
+            .font(.system(size:25))
+            .bold()
+            .foregroundColor(Color("Green"))
             
             //barra pesquisa
             
@@ -50,7 +53,7 @@ struct Feed: View{
                 .cornerRadius(40)
                 .shadow(color:Color("LightGreen"), radius:9, x:10, y:10)
                 
-           // botão criar
+                // botão criar
                 
                 Button("Criar"){
                     
@@ -63,74 +66,92 @@ struct Feed: View{
             }
             .padding(.bottom,15)
             
-            //post
+            
             
             ScrollView{
-                VStack{
-                    HStack{
-                        Image(.jkkk)
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(40)
-                        VStack{
-                            HStack{
-                                Text("João")
-                                Text("compartilhou")
-                                    .foregroundColor(.gray)
-                                Text("uma foto")
-                                Image(systemName: "ellipsis")
-                                    .foregroundStyle(Color("Green"))
-                            }
-                            
-                            Text("9 de Novembro 2024  • Editado • ")
-                                .foregroundColor(.gray)
-                                .font(.system(size: 12))
-                        }
-                    }
-
+                
+                ForEach(viewModel.momentUser, id:\.self){ element in
+                    //post
                     VStack{
-                        Text("Muito feliz em receber o PEEC 2023. Prêmio Eldorado de Excelência por Contribuição.  O segundo em três anos de empresa!! 🏆​ 🏆​ 🧡 Grato por contribuir!  ")
-                            .font(.system(size: 14))
-                            .padding()
-                    }
-                    Image(.image25)
-                    HStack{
-                        Image(systemName: "heart")
-                            .resizable()
-                            .frame(width: 24, height:22)
-                            .foregroundColor(Color("Red"))
-                        Text("69")
-                            .bold()
-                            .foregroundColor(Color("Red"))
-                            .padding(.trailing, 15)
-                        Image(systemName: "bubble")
-                            .onTapGesture {
-                                ShowingSheet.toggle()
-                        }
-                            .sheet(isPresented: $ShowingSheet) {
-                                SheetView()
+                        HStack{
+                            AsyncImage(url: URL(string: element.image ?? "")) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(40)
+                            } placeholder: {
+                                Image(systemName: "photo.fill")
                             }
-                        //ontapgesture
-                        Text("2")
+                            VStack{
+                                HStack{
+                                    Text(element.name ?? "")
+                                    Image(systemName: "ellipsis")
+                                        .foregroundStyle(Color("Green"))
+                                }
+                                
+                                Text(element.createdat)
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 12))
+                            }
+                        }
+                        
+                        VStack{
+                            Text(element.text)
+                                .font(.system(size: 14))
+                                .padding()
+                        }
+                        
+                        AsyncImage(url: URL(string: element.image ?? "")){
+                            image in image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {Color.gray}
+                        HStack{
+                            Image(systemName: "heart")
+                                .resizable()
+                                .frame(width: 24, height:22)
+                                .foregroundColor(Color("Red"))
+                            Text("\(element.reactions)")
+                            
+                                .bold()
+                                .foregroundColor(Color("Red"))
+                                .padding(.trailing, 15)
+                            Image(systemName: "bubble")
+                                .onTapGesture {
+                                    ShowingSheet.toggle()
+                                }
+                                .sheet(isPresented: $ShowingSheet) {
+                                    SheetView()
+                                }
+                            //ontapgesture
+                            Text("2")
                             Image(systemName: "paperplane")
+                        }
+                        .padding(.trailing, 180)
+                        .padding(.top, 10)
+                        
                     }
-                    .padding(.trailing, 180)
-                    .padding(.top, 10)
-                  
+                    .frame(width: 370, height: 700)
+                    .background()
+                    .cornerRadius(20)
+                    .shadow(color:Color("LightGreen"), radius:9, x:10, y:10)
+                    
+                    Spacer()
                 }
-                .frame(width: 370, height: 500)
-                .background()
-                .cornerRadius(20)
-                .shadow(color:Color("LightGreen"), radius:9, x:10, y:10)
+                }
+        
                 
-                
-                Spacer()
-            }
-            }
-    .padding()
-}
-}
+        }
+        .padding()
+        .onAppear(){
+            viewModel.getUser(id: "5b0d4074664528131833c5684f2e2d0c")
+        }
+    }
     
+    
+}
+
 #Preview {
     Feed()
 }

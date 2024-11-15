@@ -11,6 +11,10 @@
 		400C65262CE56DCB007DC8F9 /* Retrato.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C65252CE56DCB007DC8F9 /* Retrato.swift */; };
 		400C65282CE56DFA007DC8F9 /* Perfil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C65272CE56DFA007DC8F9 /* Perfil.swift */; };
 		400C652A2CE57EB9007DC8F9 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C65292CE57EB9007DC8F9 /* SheetView.swift */; };
+		404F68552CE6B539000FA343 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F68542CE6B539000FA343 /* UserViewModel.swift */; };
+		404F68572CE6B544000FA343 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F68562CE6B544000FA343 /* User.swift */; };
+		404F68592CE6B54D000FA343 /* Coment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F68582CE6B54D000FA343 /* Coment.swift */; };
+		404F685B2CE6B555000FA343 /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F685A2CE6B555000FA343 /* Moment.swift */; };
 		40BBF7B02CE40FD900BFC065 /* maisfamiliaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BBF7AF2CE40FD900BFC065 /* maisfamiliaApp.swift */; };
 		40BBF7B22CE40FD900BFC065 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BBF7B12CE40FD900BFC065 /* ContentView.swift */; };
 		40BBF7B42CE40FDA00BFC065 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40BBF7B32CE40FDA00BFC065 /* Assets.xcassets */; };
@@ -22,6 +26,10 @@
 		400C65252CE56DCB007DC8F9 /* Retrato.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Retrato.swift; sourceTree = "<group>"; };
 		400C65272CE56DFA007DC8F9 /* Perfil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Perfil.swift; sourceTree = "<group>"; };
 		400C65292CE57EB9007DC8F9 /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		404F68542CE6B539000FA343 /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		404F68562CE6B544000FA343 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = ../../../Downloads/User.swift; sourceTree = "<group>"; };
+		404F68582CE6B54D000FA343 /* Coment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Coment.swift; path = ../../../Downloads/Coment.swift; sourceTree = "<group>"; };
+		404F685A2CE6B555000FA343 /* Moment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Moment.swift; path = ../../../Downloads/Moment.swift; sourceTree = "<group>"; };
 		40BBF7AC2CE40FD900BFC065 /* maisfamilia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = maisfamilia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40BBF7AF2CE40FD900BFC065 /* maisfamiliaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = maisfamiliaApp.swift; sourceTree = "<group>"; };
 		40BBF7B12CE40FD900BFC065 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -40,9 +48,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		404F68532CE6B519000FA343 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				404F68562CE6B544000FA343 /* User.swift */,
+				404F68582CE6B54D000FA343 /* Coment.swift */,
+				404F685A2CE6B555000FA343 /* Moment.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		404F685C2CE6B573000FA343 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				404F68542CE6B539000FA343 /* UserViewModel.swift */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
 		40BBF7A32CE40FD900BFC065 = {
 			isa = PBXGroup;
 			children = (
+				404F685C2CE6B573000FA343 /* viewmodel */,
+				404F68532CE6B519000FA343 /* model */,
 				400C65292CE57EB9007DC8F9 /* SheetView.swift */,
 				400C65272CE56DFA007DC8F9 /* Perfil.swift */,
 				400C65252CE56DCB007DC8F9 /* Retrato.swift */,
@@ -152,8 +180,12 @@
 				400C65282CE56DFA007DC8F9 /* Perfil.swift in Sources */,
 				40BBF7B22CE40FD900BFC065 /* ContentView.swift in Sources */,
 				400C65262CE56DCB007DC8F9 /* Retrato.swift in Sources */,
+				404F685B2CE6B555000FA343 /* Moment.swift in Sources */,
 				400C65242CE56946007DC8F9 /* Feed.swift in Sources */,
+				404F68592CE6B54D000FA343 /* Coment.swift in Sources */,
+				404F68572CE6B544000FA343 /* User.swift in Sources */,
 				400C652A2CE57EB9007DC8F9 /* SheetView.swift in Sources */,
+				404F68552CE6B539000FA343 /* UserViewModel.swift in Sources */,
 				40BBF7B02CE40FD900BFC065 /* maisfamiliaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
