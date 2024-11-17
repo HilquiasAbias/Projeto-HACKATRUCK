@@ -30,7 +30,7 @@ struct ContentView: View {
                             
                         }
                         .toolbarBackground(.visible, for: .tabBar).toolbarBackground(Color.white.opacity(0.8), for: .tabBar)
-                    Perfil()
+                    ProfileView()
                         .tabItem{
                             Label("Meu Perfil", systemImage: "person.crop.circle")
                         } 
