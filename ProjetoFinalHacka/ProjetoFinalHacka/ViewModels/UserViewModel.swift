@@ -8,37 +8,22 @@
 import Foundation
 
 class UserViewModel: ObservableObject {
-    let apiurl = "http://127.0.0.1:1880"
+    let apiurl = "http://127.0.0.1:1880" // 192.168.128.66:1880 se não for no meu pc
     @Published var users: [User] = []
     @Published var user: User? = nil
-
-    func getUserByEmail(email: String) {
-        let url = URL(string: apiurl + "/get-user-by-email?email=\(email.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)")!
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            do {
-                let user = try JSONDecoder().decode(User.self, from: data)
-                DispatchQueue.main.async {
-                    self.user = user
-                }
-            } catch {
-                print("Error decoding user: \(error)")
-            }
-        }
-        task.resume()
-    }
     
     func getUser(id: String) {
-        let task = URLSession.shared.dataTask(with: apiurl + "/get-user/\(id)") { data, _, error in
+        let task = URLSession.shared.dataTask(with: URL(string:apiurl + "/get-user?_id=\(id)")!) { data, _, error in
             do {
-                let user = try JSONDecoder().decode(User.self, from: data)
+                let user = try JSONDecoder().decode(User.self, from: data!)
                 DispatchQueue.main.async {
                     self.user = user
+                    self.momentUser = user.moments
                 }
             } catch {
                 print("Error decoding user: \(error)")
             }
         }
-        task.resume()
     }
 
     func getUsers() {
@@ -46,7 +31,8 @@ class UserViewModel: ObservableObject {
         ) { data, _, error in
             do {
                 self.users = try JSONDecoder().decode([User].self, from: data!)
-                print(self.users)
+                self.user = self.users[0]
+                print(self.user)
             } catch {
                 print(error)
             }

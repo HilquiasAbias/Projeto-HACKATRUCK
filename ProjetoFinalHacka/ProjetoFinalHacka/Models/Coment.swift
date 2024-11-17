@@ -8,10 +8,8 @@
 import Foundation
 
 struct Coment: Encodable, Decodable, Hashable {
-    var _id: String
-    var _rev: String
     var text: String
-    var user: User
-    var moment: Moment
+    var username: String
     var createdat: String
+    var image: String
 }
