@@ -8,9 +8,8 @@
 import Foundation
 
 struct Moment: Encodable, Decodable, Hashable {
-    var id: Int
     var text: String
-    var name: String
+    var name: String?
     var image: String
     var createdat: String
     var coments: [Coment]

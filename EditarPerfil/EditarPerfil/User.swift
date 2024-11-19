@@ -1,8 +1,8 @@
 //
 //  User.swift
-//  EditarPerfil
+//  ProjetoFinalHacka
 //
-//  Created by Turma02-3 on 13/11/24.
+//  Created by Turma02-7 on 11/11/24.
 //
 
 import Foundation
@@ -15,4 +15,3 @@ struct User: Encodable, Decodable, Hashable {
     var image: String
     var moments: [Moment]
 }
-
